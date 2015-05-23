@@ -13,20 +13,27 @@ app.start = function() {
   });
 };
 
+
+//Charge Customer Card Immediately 
+app.use('/complete_transaction', loopback.bodyParser(), function(req, res){
+
 //Tokenized info
-// var stripeToken = request.body.stripeToken;
+var stripeToken = req.body.stripeToken;
 
-// var charge = stripe.charges.create({
-//   amount: 1000, // amount in cents, again
-//   currency: "usd",
-//   source: stripeToken,
-//   description: "Example charge"
-// }, function(err, charge) {
-//   if (err && err.type === 'StripeCardError') {
-//     // The card has been declined
-//   }
-// });
-
+	var charge = stripe.charges.create({
+	  amount: 1000, // amount in cents, again
+	  currency: "usd",
+	  source: stripeToken,
+	  description: "Example charge"
+	}, function(err, charge) {
+	  if (err && err.type === 'StripeCardError') {
+	    // The card has been declined
+	    res.json({"status":"401 Card Declined"});
+	  } else {
+	  	res.json({"status":"200 OK"});
+	  }
+	});
+});
 
 
 // Bootstrap the application, configure models, datasources and middleware.

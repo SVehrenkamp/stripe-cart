@@ -5,4 +5,16 @@ main{
 		margin:10px;
 		width:100%;
 	}
+	div#cart_wrapper{
+		table{
+			td{
+				img{
+					width:100px;
+					height:100px;
+					display:block;
+					overflow: hidden;
+				}
+			}
+		}
+	}
 }

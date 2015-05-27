@@ -1,0 +1,49 @@
+{
+    "html": "",
+    "subject": "Order Confirmation",
+    "from_email": "sales@vehrenkamp.com",
+    "from_name": "Vehrenkamp.com",
+    "to": [{
+            "email": "",
+            "name": "",
+            "type": "to"
+        }],
+    "headers": {
+        "Reply-To": "sales@vehrenkamp.com"
+    },
+    "important": false,
+    "track_opens": null,
+    "track_clicks": null,
+    "auto_text": null,
+    "auto_html": null,
+    "inline_css": null,
+    "url_strip_qs": null,
+    "preserve_recipients": null,
+    "view_content_link": null,
+    "bcc_address": "message.bcc_address@example.com",
+    "tracking_domain": null,
+    "signing_domain": null,
+    "return_path_domain": null,
+    "merge": true,
+    "merge_language": "mailchimp",
+    "global_merge_vars": [{
+            "name": "merge1",
+            "content": "merge1 content"
+        }],
+    "merge_vars": [{
+            "rcpt": "",
+            "vars": [{
+                    "name": "merge2",
+                    "content": "merge2 content"
+                }]
+        }],
+    "tags": [
+        "password-resets"
+    ],
+    "recipient_metadata": [{
+            "rcpt": "",
+            "values": {
+                "user_id": 123456
+            }
+        }]
+}

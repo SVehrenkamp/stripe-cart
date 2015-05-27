@@ -25,6 +25,7 @@ angular.module('CheckoutCTRL', [])
 			$('.payment-errors').append('<h2>Declined.</h2><br><p>Your Card Has Been Declined.</p>');
 				
 		} else{
+			console.log(response);
 			var form_data = {};
 			var token = response.id;
 

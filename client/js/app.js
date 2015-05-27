@@ -1,4 +1,4 @@
-angular.module('App', ['ui.router', 'CheckoutCTRL', 'CartCTRL', 'Cart'])
+angular.module('App', ['ui.router', 'CheckoutCTRL', 'CartCTRL', 'ConfirmationCTRL', 'Cart'])
 .config(function($stateProvider, $urlRouterProvider){
 	$urlRouterProvider.otherwise('/');
 	$stateProvider
@@ -25,6 +25,15 @@ angular.module('App', ['ui.router', 'CheckoutCTRL', 'CartCTRL', 'Cart'])
 				'Main': {
 					controller: 'CheckoutCTRL',
 					templateUrl: 'js/partials/checkout.partial.html'
+				}
+			}
+		})
+		.state('confirmation', {
+			url: '/confirmation',
+			views: {
+				'Main': {
+					controller: 'ConfirmationCTRL',
+					templateUrl: 'js/partials/confirmation.partial.html'
 				}
 			}
 		});

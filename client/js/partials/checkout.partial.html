@@ -1,7 +1,94 @@
-<div id="payment_info">
-	Total Items {{total_items}}
-	Total {{total}}
+<div id="checkout_wrapper">
+	<h2>My Order</h2>
+	<table class="table table-striped table-hover">
+		<thead>
+			<tr>
+				<th></th>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Qty</th>
+				<th>Price</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in items_in_cart">
+				<td><img src="{{item.thumbnail}}" alt="{{item.name}} thumbnail"/></td>
+				<td>{{item.name}}</td>
+				<td>{{item.description}}</td>
+				<td>{{item.qty}}</td>
+				<td>${{item.price}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div id="cart_totals">
+		<p><strong>Shipping: ${{shipping_total}}.00</strong></p>
+		<p><strong>Total: ${{total.sum}}.00</strong></p>
+		<a class="btn btn-warning" href="#/cart">Back to Cart <span class="glyphicon glyphicon-shopping-cart"></span></a>
+	</div>
+
+	<form id="user-form">
+		<h3>1. Contact Information</h3>
+		<div class="form-row">
+		<label>
+		  <span>First Name</span>
+		  <input type="text" size="20" name="first_name" ng-model="user.first_name"/>
+		</label>
+		</div>
+		<div class="form-row">
+		<label>
+		  <span>Last Name</span>
+		  <input type="text" size="20" name="last_name" ng-model="user.last_name"/>
+		</label>
+		</div>
+		<div class="form-row">
+		<label>
+		  <span>Phone Number</span>
+		  <input type="phone" size="20" name="phone" ng-model="user.phone"/>
+		</label>
+		</div>
+		<div class="form-row">
+		<label>
+		  <span>E-Mail Address</span>
+		  <input type="email" size="20" name="email" ng-model="user.email"/>
+		</label>
+		</div>
+		<h3>2. Address</h3>
+		<div class="form-row">
+		<label>
+		  <span>Street Address</span>
+		  <input type="text" size="20" name="street_address" ng-model="user.street_address"/>
+		</label>
+		</div>
+		<div class="form-row">
+		<label>
+		  <span>Apt. Number</span>
+		  <input type="text" size="20" name="apt_number" ng-model="user.apt_number"/>
+		</label>
+		</div>
+		<div class="form-row">
+		<label>
+		  <span>City</span>
+		  <input type="text" size="20" name="city" ng-model="user.city"/>
+		</label>
+		</div>
+		<div class="form-row">
+		<label>
+		  <span>State</span>
+		  <input type="text" size="20" name="state" ng-model="user.state"/>
+		</label>
+		</div>
+		<div class="form-row">
+		<label>
+		  <span>Zip Code</span>
+		  <input type="text" size="20" name="zip" ng-model="user.zip"/>
+		</label>
+		</div>
+	</form>
+	
 	<form action="" id="payment-form">
+		
+		<h3>3. Payment Information</h3>
 		<span class="payment-errors"></span>
 
 		<div class="form-row">
@@ -29,5 +116,4 @@
 
 		<button class="btn btn-primary" ng-click="tokenize(); $event.preventDefault();" type="submit">Submit Payment</button>
 	</form>
-	<div id="success"></div>
 </div>

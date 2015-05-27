@@ -5,7 +5,7 @@ main{
 		margin:10px;
 		width:100%;
 	}
-	div#cart_wrapper{
+	div#cart_wrapper, div#checkout_wrapper{
 		table{
 			td{
 				img{
@@ -14,6 +14,13 @@ main{
 					display:block;
 					overflow: hidden;
 				}
+			}
+		}
+
+		div#cart_totals{
+			float:right;
+			p{
+				text-align:right;
 			}
 		}
 	}

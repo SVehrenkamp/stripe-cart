@@ -1,2 +1,2 @@
-main{width:750px;margin:0 auto}main div.view{margin:10px;width:100%}main div#cart_wrapper table td img{width:100px;height:100px;display:block;overflow:hidden}
+main{width:750px;margin:0 auto}main div.view{margin:10px;width:100%}main div#cart_wrapper table td img,main div#checkout_wrapper table td img{width:100px;height:100px;display:block;overflow:hidden}main div#cart_wrapper div#cart_totals,main div#checkout_wrapper div#cart_totals{float:right}main div#cart_wrapper div#cart_totals p,main div#checkout_wrapper div#cart_totals p{text-align:right}
 /*# sourceMappingURL=main.css.map */

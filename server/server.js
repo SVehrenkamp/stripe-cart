@@ -19,18 +19,24 @@ app.use('/complete_transaction', loopback.bodyParser(), function(req, res){
 
 //Tokenized info
 var stripeToken = req.body.stripeToken;
+var chargeAmmount = req.body.chargeAmmount * 100;
+var order_number = '';
 
 	var charge = stripe.charges.create({
-	  amount: 1000, // amount in cents, again
+	  amount: chargeAmmount, // amount in cents, again
 	  currency: "usd",
 	  source: stripeToken,
-	  description: "Example charge"
+	  description: "Order Number 100012 from MyStore.com" 
 	}, function(err, charge) {
 	  if (err && err.type === 'StripeCardError') {
 	    // The card has been declined
 	    res.json({"status":"401 Card Declined"});
 	  } else {
-	  	res.json({"status":"200 OK"});
+	  	order_number = 'xxxx-4xxx-yxxx-xxxx'.replace(/[xy]/g, function(c) {
+		    var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+		    return v.toString(16);
+		});
+	  	res.json({"status":"200 OK", "chargeAmmount":chargeAmmount, "order_number":order_number});
 	  }
 	});
 });

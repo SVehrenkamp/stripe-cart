@@ -19,8 +19,11 @@ angular.module('CartCTRL', [])
 		};
 
 		$scope.remove_item = function($index){
-			$scope.items_in_cart.splice($index, 1);
-			console.log('Removing '+$index+' from cart.');
+			$cart.remove_item($index);
+			
+			//Update Cart and Shipping Totals on the View
+			$scope.total = $cart.get_cart_total();
+			$scope.shipping_total = $cart.calc_shipping();
 		};
 
 

@@ -27,6 +27,14 @@ angular.module('Cart', [])
 			sum: 0,
 			shipping_total: 0,
 
+			add_item: function(item){
+				cart_items.push(item);
+				return cart_items;
+			},
+			remove_item: function($index){
+				cart_items.splice($index, 1);
+				return cart_items;
+			},
 			get_items: function(){
 				return cart_items;
 			},

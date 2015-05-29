@@ -3,12 +3,40 @@ angular.module('CheckoutCTRL', [])
 
 	var $payment_form = $('#payment-form');
 	$scope.user = {};
+	$scope.cc = {};
 
 	//Set Checkout Variables from Cart Service
 	$scope.items_in_cart = $cart.get_items();
 	$scope.total = $cart.get_cart_total();
 	$scope.shipping_total = $cart.calc_shipping();
 
+	//Payment Form Validations
+	$scope.validation = {
+		step_1: false,
+		step_2: false
+	};
+
+	$scope.validate_fields = function(){
+		//Step 1
+		if($scope.user.first_name && $scope.user.last_name && $scope.user.phone && $scope.user.email){
+			$scope.validation.step_1 = true;
+		} else if(!$scope.user.first_name || !$scope.user.last_name || !$scope.user.phone || !$scope.user.email){
+			$scope.validation.step_1 = false;
+		}
+		//Step 2
+		if($scope.user.street_address && $scope.user.city && $scope.user.state && $scope.user.zip){
+			$scope.validation.step_2 = true;
+		} else if(!$scope.user.street_address || !$scope.user.city || !$scope.user.state || !$scope.user.zip){
+			$scope.validation.step_2 = false;
+		}
+		//Step 3
+		if($scope.cc.number && $scope.cc.cvc && $scope.cc.month && $scope.cc.year){
+			$payment_form.find('button').prop('disabled', false);
+		} else if(!$scope.cc.number || !$scope.cc.cvc || !$scope.cc.month || !$scope.cc.year){
+			$payment_form.find('button').prop('disabled', true);
+		}
+		//Step 3
+	}
 
 	//Create auth token from payment card information
 	$scope.tokenize = function(){

@@ -3,6 +3,7 @@ var boot = require('loopback-boot');
 var config = require('../config');
 var stripe = require("stripe")(config.secret);
 var fs = require('fs');
+var path = require('path');
 var ejs = require('ejs');
 
 var mandrill = require("mandrill-api/mandrill");
@@ -21,37 +22,47 @@ app.start = function() {
   });
 };
 
+//Send Confirmation Email
+var send_confirmation = function(order){	//Add Message Template Here
+	var message = require('../email/message.json');
+	var tpldata = order;
+	var templateString = null;
+
+	console.log(message);
+
+	fs.readFile(path.join(__dirname, '../email/order.ejs'), 'utf8', function(err, data){
+		if(err) throw err;
+		templateString = data;
+		var template = ejs.render(templateString, tpldata);
+		message.html = template;
+		message.to[0].email = tpldata.email;
+		message.to[0].name = tpldata.first_name +' '+tpldata.last_name;
+		message.merge_vars[0].rcpt = tpldata.email;
+		message.recipient_metadata[0].rcpt = tpldata.email;
+
+
+		var async = false;
+		var ip_pool = "Main Pool";
+		
+		mandrill_client.messages.send({"message": message, "async": async, "ip_pool": ip_pool}, function(result) {
+		    console.log(result);
+		}, function(e) {
+		    // Mandrill returns the error as an object with name and message keys
+		    console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
+		    // A mandrill error occurred: Unknown_Subaccount - No subaccount exists with the id 'customer-123'
+		});		
+
+	});
+
+}
+
 //Save Order Data to Mongo
 app.use('/complete-order', loopback.bodyParser(), function(req, res){
 	var order = req.body;
 	Cart.save_order(order, res);
+	send_confirmation(order);
+
 });
-
-//Send Confirmation Email
-app.use('/mail/confirmation', loopback.bodyParser(), function(req, res){
-	//Add Message Template Here
-	var message = require('../email/message.json');
-	var tpldata = config;
-	var templateString = null;
-	fs.readFile('../email/confirmation.ejs', 'utf8', function(err, data){
-		if(err) throw err;
-		templateString = data;
-		var template = ejs.render(templateString, tpldata);
-
-	});
-
-	var async = false;
-	var ip_pool = "Main Pool";
-	
-	mandrill_client.messages.send({"message": message, "async": async, "ip_pool": ip_pool}, function(result) {
-	    console.log(result);
-	}, function(e) {
-	    // Mandrill returns the error as an object with name and message keys
-	    console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
-	    // A mandrill error occurred: Unknown_Subaccount - No subaccount exists with the id 'customer-123'
-	});
-});
-
 //Charge Customer Card Immediately 
 app.use('/complete_transaction', loopback.bodyParser(), function(req, res){
 

@@ -24,4 +24,32 @@ main{
 			}
 		}
 	}
+	div#checkout_wrapper{
+		button.checkout{
+			width:100%;
+			border:0 none;
+			border-bottom:1px solid #cccccc;
+			background:none;
+			display:block;
+			float:left;
+			text-align:left;
+
+			&.disabled{
+				opacity:0.2;
+			}
+		}
+		div.checkout_inner{
+			display:block;
+			width:100%;
+			float:left;
+			padding:10px;
+
+			&.disabled{
+				display:none;
+			}
+		}
+		div.step1{
+			display:block;
+		}
+	}
 }

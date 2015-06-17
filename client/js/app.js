@@ -1,4 +1,4 @@
-angular.module('App', ['ui.router', 'CheckoutCTRL', 'CartCTRL', 'ConfirmationCTRL', 'Cart', 'ngMock'])
+angular.module('App', ['ui.router', 'CheckoutCTRL', 'CartCTRL', 'ConfirmationCTRL', 'Cart'])
 .config(function($stateProvider, $urlRouterProvider){
 	$urlRouterProvider.otherwise('/');
 	$stateProvider

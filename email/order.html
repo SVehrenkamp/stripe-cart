@@ -101,7 +101,7 @@
 <table cellpadding="0" cellspacing="0" border="0" width="100%" id="backgroundTable">
 	<tr>
 		<td valign="top"> 
-		<table cellpadding="0" cellspacing="0" border="0" width="768" align="center">
+		<table cellpadding="0" cellspacing="0" border="1px" width="768" align="center">
 			<tr>
 				<td width="100%" valign="top">
 					<table cellpadding="0" cellspacing="0" border="0" width="100%">
@@ -110,9 +110,9 @@
 							<td>
 								<table cellpadding="0" cellspacing="0" border="0">
 									<tr>
-										<td width="140" style="padding:0px 0px 0px 20px; text-align:center;font-family:Helvetica, Arial, Sans-Serif; font-size:14px;">GO Habanero</td>
+										<td width="140" style="padding:0px 0px 0px 20px;">GO Habanero</td>
 										<td width="400">&nbsp;</td>
-										<td width="228" style="padding:0px 20px 0px 0px; text-align:center;font-family:Helvetica, Arial, Sans-Serif; font-size:14px;"><strong>Order</strong> #<%= order_number%></td>
+										<td width="228" style="padding:0px 20px 0px 0px;">Order #<%= order_number%></td>
 									</tr>
 								</table>
 							</td>
@@ -160,15 +160,15 @@
 												<tr>
 													<thead>
 														<td></td>
-														<td style="font-family:Helvetica, Arial, Sans-Serif;font-size:14px; color:#454545; font-weight:bold;">Product Name</td>
-														<td style="font-family:Helvetica, Arial, Sans-Serif;font-size:14px; color:#454545; font-weight:bold;">Description</td>
-														<td style="font-family:Helvetica, Arial, Sans-Serif;font-size:14px; color:#454545; font-weight:bold;">Qty</td>
-														<td style="font-family:Helvetica, Arial, Sans-Serif;font-size:14px; color:#454545; font-weight:bold;">Price</td>
+														<td>Product Name</td>
+														<td>Description</td>
+														<td>Qty</td>
+														<td>Price</td>
 													</thead>
 												</tr>
-												<% for(var i=0; i<ordered_items.length; i++){ %>
+												<% for(var i=0; i<ordered_items.length; i++;){ %>
 												<tr>
-													<td><img src="http://localhost:3000/img<%= ordered_items[i].thumbnail%>" /></td>
+													<td><%= ordered_items[i].thumbnail%></td>
 													<td><%= ordered_items[i].name%></td>
 													<td><%= ordered_items[i].description%></td>
 													<td><%= ordered_items[i].qty%></td>
@@ -179,32 +179,7 @@
 										</td>
 										<td style="padding:0px 20px 0px 0px;">&nbsp;</td>
 									</tr>
-									</tr>
-										<td style="padding:0px 0px 0px 20px;">&nbsp;</td>
-										<td style="font-family:Helvetica, Arial, Sans-Serif;font-size:14px; color:#454545; text-align:right;">
-											<p><strong>Shipping Total:</strong> $<%= shipping_total%></p>
-										</td>
-										<td style="padding:0px 20px 0px 0px;">&nbsp;</td>
-									</tr>
-									</tr>
-										<td style="padding:0px 0px 0px 20px;">&nbsp;</td>
-										<td style="font-family:Helvetica, Arial, Sans-Serif;font-size:14px; color:#454545; text-align:right;">
-											<p><strong>Total:</strong> $<%= order_total%></p>
-										</td>
-										<td style="padding:0px 20px 0px 0px;">&nbsp;</td>
-									</tr>
 									
-								</table>
-							</td>
-						</tr>
-						<tr>
-							<td width="100%" height="60" bgcolor="#454545">
-								<table cellpadding="0" cellspacing="0" border="0">
-									<tr>
-										<td width="100"></td>
-										<td width="568" style="text-align:center;font-family:Helvetica, Arial, Sans-Serif; font-size:12px; color:#FFFFFF;">&copy; 2015 GO Habanero</td>
-										<td width="100"></td>
-									</tr>
 								</table>
 							</td>
 						</tr>

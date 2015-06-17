@@ -1,5 +1,5 @@
 angular.module('CheckoutCTRL', [])
-.controller('CheckoutCTRL', function($scope, $http, $cart, $location){
+.controller('CheckoutCTRL', function($scope, $cart, $location){
 
 	var $payment_form = $('#payment-form');
 	$scope.user = {};
@@ -46,6 +46,15 @@ angular.module('CheckoutCTRL', [])
 		return false;
 	};
 
+	//Callback function to handle response from cart service
+	var cartResponseHandler = function(response){
+		if(response === "Success"){
+			$location.path('/confirmation');
+		} else{
+			$('.payment-errors').append('<h2>Declined.</h2><br><p>Your Card Has Been Declined.</p>');
+		}
+	};
+
 	//Callback function to handle response from tokenization
 	var stripeResponseHandler = function(status, response){
 		if(response.error){
@@ -60,19 +69,8 @@ angular.module('CheckoutCTRL', [])
 			form_data.stripeToken = token;
 			form_data.chargeAmmount = $scope.total.sum;
 
-			$http.post('/complete_transaction', form_data).then(function(resp){
-				console.log('Success!', resp);
-
-				if(resp.status === 200 ){
-
-					$cart.complete_current_order($scope.user, resp.data.order_number);
-
-					$location.path('/confirmation');
-				} else{
-					$('.payment-errors').append('<h2>Declined.</h2><br><p>Your Card Has Been Declined.</p>');
-				}
-			});
+			$cart.complete_current_order(form_data, $scope.user, cartResponseHandler);
 
 		}
-	}
+	};
 });

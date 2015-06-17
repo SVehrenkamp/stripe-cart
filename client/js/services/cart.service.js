@@ -1,5 +1,5 @@
 angular.module('Cart', [])
-	.service('$cart', function(){
+	.service('$cart', function($http){
 		//Mock Data
 		var item = {
 			thumbnail: '/img/product.png',
@@ -11,9 +11,9 @@ angular.module('Cart', [])
 		var item2 = {
 			thumbnail: '/img/product.png',
 			name: 'Teleportomatic 3150',
-			description: 'Economy Teleportation Unit in Silver.  Designed for medium to light teleporting.',
+			description: 'Teleportation Unit in Silver.  Designed for medium to light teleporting.',
 			qty: 1,
-			price: 1300 
+			price: 1300	 
 		};
 
 		var cart_items = [item, item2];
@@ -80,18 +80,37 @@ angular.module('Cart', [])
 				console.log(user);
 				return user;
 			},
-			complete_current_order: function(usr, orderID){
-				this.set_user(usr);
+			save_order: function(order){
+				$http.post('complete-order', order).success(function(data){
+					console.log('Order Successfully saved to MongoDB!', data);
+				});
+			},
+			complete_current_order: function(form_data, usr, response){
+				var self = this;
+				$http.post('/complete_transaction', form_data).then(function(resp){
+				console.log('Success!', resp);
 
-				order_number = orderID || order_number;
+				if(resp.status === 200 ){
 
-				user.order_number = order_number;
-				user.ordered_items = cart_items;
-				user.num_ordered_items = cart_total;
-				user.order_total = sum;
-				user.shipping_total = shipping_total;
-				user.shipping = shipping_total;
-				user.date = new Date();
+					self.set_user(usr);
+					var order_number = resp.data.order_number;
+
+					user.order_number = order_number;
+					user.ordered_items = cart_items;
+					user.num_ordered_items = cart_total;
+					user.order_total = sum;
+					user.shipping_total = shipping_total;
+					user.shipping = shipping_total;
+					user.date = new Date();
+
+					self.save_order(user);
+					
+					response('Success');
+
+				} else{
+					response('Error');
+				}
+			});
 
 				return user;
 			}

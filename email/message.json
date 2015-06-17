@@ -1,15 +1,15 @@
 {
     "html": "",
     "subject": "Order Confirmation",
-    "from_email": "sales@vehrenkamp.com",
-    "from_name": "Vehrenkamp.com",
+    "from_email": "sales@GOHabanero.com",
+    "from_name": "GOhabanero.com",
     "to": [{
             "email": "",
             "name": "",
             "type": "to"
         }],
     "headers": {
-        "Reply-To": "sales@vehrenkamp.com"
+        "Reply-To": "sales@GOHabanero.com"
     },
     "important": false,
     "track_opens": null,

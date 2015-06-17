@@ -28,8 +28,6 @@ var send_confirmation = function(order){	//Add Message Template Here
 	var tpldata = order;
 	var templateString = null;
 
-	console.log(message);
-
 	fs.readFile(path.join(__dirname, '../email/order.ejs'), 'utf8', function(err, data){
 		if(err) throw err;
 		templateString = data;
@@ -59,6 +57,7 @@ var send_confirmation = function(order){	//Add Message Template Here
 //Save Order Data to Mongo
 app.use('/complete-order', loopback.bodyParser(), function(req, res){
 	var order = req.body;
+	
 	Cart.save_order(order, res);
 	send_confirmation(order);
 
